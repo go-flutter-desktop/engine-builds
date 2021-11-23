@@ -45,14 +45,14 @@ jobs:
           # gn: --embedder-for-target --runtime-mode=debug --unoptimized --ios --ios-cpu=arm
           # host: macos-latest
           # host_tag: macosx_x64
-        - tag: host_debug_unopt
-          gn: --embedder-for-target --runtime-mode=debug --unoptimized
-          host: macos-latest
-          host_tag: macosx_x64
-        - tag: host_debug_unopt
-          gn: --embedder-for-target --runtime-mode=debug --unoptimized
-          host: windows-latest
-          host_tag: windows_x64
+        #- tag: host_debug_unopt
+        #  gn: --embedder-for-target --runtime-mode=debug --unoptimized
+        #  host: macos-latest
+        #  host_tag: macosx_x64
+        #- tag: host_debug_unopt
+        #  gn: --embedder-for-target --runtime-mode=debug --unoptimized
+        #  host: windows-latest
+        #  host_tag: windows_x64
 
         # - tag: android_profile
         #   gn: --embedder-for-target --runtime-mode profile --lto --android
@@ -82,14 +82,14 @@ jobs:
         #   gn: --embedder-for-target --runtime-mode profile --lto --ios --ios-cpu=arm
         #   host: macos-latest
         #   host_tag: macosx_x64
-        - tag: host_profile
-          gn: --embedder-for-target --runtime-mode profile --lto
-          host: macos-latest
-          host_tag: macosx_x64
-        - tag: host_profile
-          gn: --embedder-for-target --runtime-mode profile --lto
-          host: windows-latest
-          host_tag: windows_x64
+        #- tag: host_profile
+        #  gn: --embedder-for-target --runtime-mode profile --lto
+        #  host: macos-latest
+        #  host_tag: macosx_x64
+        #- tag: host_profile
+        #  gn: --embedder-for-target --runtime-mode profile --lto
+        #  host: windows-latest
+        #  host_tag: windows_x64
 
         # - tag: android_release
         #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
@@ -123,14 +123,14 @@ jobs:
         #     --ios-cpu=arm
         #   host: macos-latest
         #   host_tag: macosx_x64
-        - tag: host_release
-          gn: --embedder-for-target --runtime-mode release --lto --stripped
-          host: macos-latest
-          host_tag: macosx_x64
-        - tag: host_release
-          gn: --embedder-for-target --runtime-mode release --lto --stripped
-          host: windows-latest
-          host_tag: windows_x64
+        #- tag: host_release
+        #  gn: --embedder-for-target --runtime-mode release --lto --stripped
+        #  host: macos-latest
+        #  host_tag: macosx_x64
+        #- tag: host_release
+        #  gn: --embedder-for-target --runtime-mode release --lto --stripped
+        #  host: windows-latest
+        #  host_tag: windows_x64
 
     runs-on: ${{ matrix.config.host }}
 
