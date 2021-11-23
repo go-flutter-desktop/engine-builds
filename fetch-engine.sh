@@ -1,7 +1,6 @@
 set -e
 export ENGINE_PATH="${PWD}/engine"
 export PATH="${PWD}/depot_tools:${PATH}"
-export FLUTTER_PREBUILT_DART_SDK=1
 
 echo "Fetching engine"
 mkdir -p $ENGINE_PATH
