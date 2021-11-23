@@ -2,8 +2,9 @@ name: Flutter Engine
 
 
 on:
-  schedule:
-  - cron: 0 0/2 * * *
+  # TODO: reenable
+  #schedule:
+  #- cron: 0 0/2 * * *
   push:
     branches:
     - master

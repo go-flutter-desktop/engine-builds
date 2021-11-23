@@ -4,4 +4,4 @@ ENGINE_PATH="${PWD}/engine"
 export PATH="$PATH:$DEPOT_TOOLS_PATH"
 
 cd $ENGINE_PATH/src
-./flutter/tools/gn --prebuilt-dart-sdk --no-goma $@
+./flutter/tools/gn --no-prebuilt-dart-sdk --no-goma $@
