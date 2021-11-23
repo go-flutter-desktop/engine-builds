@@ -228,10 +228,10 @@ jobs:
       run: ./fetch-engine.sh ${{ steps.get_engine_version.outputs.engine_version }}
       shell: bash
 
-    - name: Patch
-      if: steps.release_check.outputs.skip_build != 'true'
-      run: ./patch-engine.sh
-      shell: bash
+    #- name: Patch
+    #  if: steps.release_check.outputs.skip_build != 'true'
+    #  run: ./patch-engine.sh
+    #  shell: bash
 
     - name: Generate config
       if: steps.release_check.outputs.skip_build != 'true'
