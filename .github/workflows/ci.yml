@@ -71,10 +71,10 @@ jobs:
         #   gn: --embedder-for-target --runtime-mode profile --lto --android --android-cpu=x64
         #   host: ubuntu-latest
         #   host_tag: linux_x64
-        #- tag: host_profile
-        #  gn: --embedder-for-target --runtime-mode profile --lto
-        #  host: ubuntu-latest
-        #  host_tag: linux_x64
+        - tag: host_profile
+          gn: --embedder-for-target --runtime-mode profile --lto
+          host: ubuntu-latest
+          host_tag: linux_x64
         # - tag: ios_profile
         #   gn: --embedder-for-target --runtime-mode profile --lto --ios
         #   host: macos-latest
@@ -111,10 +111,10 @@ jobs:
         #     --android-cpu=x64
         #   host: ubuntu-latest
         #   host_tag: linux_x64
-        #- tag: host_release
-        #  gn: --embedder-for-target --runtime-mode release --lto --stripped
-        #  host: ubuntu-latest
-        #  host_tag: linux_x64
+        - tag: host_release
+          gn: --embedder-for-target --runtime-mode release --lto --stripped
+          host: ubuntu-latest
+          host_tag: linux_x64
         # - tag: ios_release
         #   gn: --embedder-for-target --runtime-mode release --lto --stripped --ios
         #   host: macos-latest
