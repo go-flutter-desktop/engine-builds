@@ -83,14 +83,14 @@ jobs:
         #   gn: --embedder-for-target --runtime-mode profile --lto --ios --ios-cpu=arm
         #   host: macos-latest
         #   host_tag: macosx_x64
-        #- tag: host_profile
-        #  gn: --embedder-for-target --runtime-mode profile --lto
-        #  host: macos-latest
-        #  host_tag: macosx_x64
         - tag: host_profile
           gn: --embedder-for-target --runtime-mode profile --lto
-          host: windows-latest
-          host_tag: windows_x64
+          host: macos-latest
+          host_tag: macosx_x64
+        #- tag: host_profile
+        #  gn: --embedder-for-target --runtime-mode profile --lto
+        #  host: windows-latest
+        #  host_tag: windows_x64
 
         # - tag: android_release
         #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
@@ -197,7 +197,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Install Python 2.x
-      if: steps.release_check.outputs.skip_build != 'true'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'macos-latest'
       uses: actions/setup-python@v1
       with:
         python-version: '2.x'
