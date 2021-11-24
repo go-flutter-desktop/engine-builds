@@ -17,7 +17,6 @@ solutions = [
         # 'src/third_party/android_tools/trace_to_text': None,
         'src/third_party/java/openjdk': None,
         'src/third_party/glfw': None,
-        'src/third_party/glslang': None,
         'src/ios_tools': None,
         'src/third_party/khronos': None,
         'src/third_party/vulkan': None,
