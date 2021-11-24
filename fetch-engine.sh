@@ -8,4 +8,4 @@ mkdir -p $ENGINE_PATH
 cp gclientconfig $ENGINE_PATH/.gclient
 
 cd $ENGINE_PATH
-gclient sync -r $1
+gclient sync --no-history -r $1

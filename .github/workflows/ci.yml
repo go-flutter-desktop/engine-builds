@@ -34,10 +34,10 @@ jobs:
         #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --android --android-cpu=x64
         #   host: ubuntu-latest
         #   host_tag: linux_x64
-        - tag: host_debug_unopt
-          gn: --embedder-for-target --runtime-mode=debug --unoptimized
-          host: ubuntu-latest
-          host_tag: linux_x64
+        #- tag: host_debug_unopt
+        #  gn: --embedder-for-target --runtime-mode=debug --unoptimized
+        #  host: ubuntu-latest
+        #  host_tag: linux_x64
         # - tag: ios_debug_unopt
         #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --ios
         #   host: macos-latest
@@ -87,10 +87,10 @@ jobs:
         #  gn: --embedder-for-target --runtime-mode profile --lto
         #  host: macos-latest
         #  host_tag: macosx_x64
-        #- tag: host_profile
-        #  gn: --embedder-for-target --runtime-mode profile --lto
-        #  host: windows-latest
-        #  host_tag: windows_x64
+        - tag: host_profile
+          gn: --embedder-for-target --runtime-mode profile --lto
+          host: windows-latest
+          host_tag: windows_x64
 
         # - tag: android_release
         #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
