@@ -230,4 +230,4 @@ jobs:
       with:
         tag_name: f-${{ steps.get_engine_version.outputs.engine_version }}
         name: Flutter ${{ steps.get_engine_version.outputs.engine_version }}
-        files: C:\repo\engine_out\${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip # hope this works!
+        files: C:\repo\${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip # hope this works!
