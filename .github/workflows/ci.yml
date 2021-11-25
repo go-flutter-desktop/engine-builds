@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        channel: [beta, dev, master] #, stable
+        channel: [beta] # [beta, dev, master] #, stable
         config:
         # Debug builds not needed: fetched from Google
 
@@ -136,8 +136,12 @@ jobs:
       run: ./fetch-depot-tools.sh
       shell: bash
 
-    - name: Install depot tools (windows)
+    - name: Make working directory (windows)
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      run: mkdir C:\repo
+
+    - name: Install depot tools (windows)
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
       working-directory: C:\repo
       run: ./fetch-depot-tools.sh
       shell: bash
