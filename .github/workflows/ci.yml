@@ -2,9 +2,8 @@ name: Flutter Engine
 
 
 on:
-  # TODO: reenable
-  #schedule:
-  #- cron: 0 0/2 * * *
+  schedule:
+  - cron: 0 0/2 * * *
   push:
     branches:
     - master
@@ -16,31 +15,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        channel: [beta] # [beta, dev, master] #, stable
+        channel: [beta, dev, master] #, stable
         config:
         # Debug builds not needed: fetched from Google
 
-#        - tag: host_profile
-#          gn: --embedder-for-target --runtime-mode profile --lto
-#          host: ubuntu-latest
-#          host_tag: linux_x64
-#        - tag: host_profile
-#          gn: --embedder-for-target --runtime-mode profile --lto
-#          host: macos-latest
-#          host_tag: macosx_x64
-#        - tag: host_profile
-#          gn: --embedder-for-target --runtime-mode profile --lto
-#          host: windows-latest
-#          host_tag: windows_x64
+        - tag: host_profile
+          gn: --embedder-for-target --runtime-mode profile --lto
+          host: ubuntu-latest
+          host_tag: linux_x64
+        - tag: host_profile
+          gn: --embedder-for-target --runtime-mode profile --lto
+          host: macos-latest
+          host_tag: macosx_x64
+        - tag: host_profile
+          gn: --embedder-for-target --runtime-mode profile --lto
+          host: windows-latest
+          host_tag: windows_x64
 
-#        - tag: host_release
-#          gn: --embedder-for-target --runtime-mode release --lto --stripped
-#          host: ubuntu-latest
-#          host_tag: linux_x64
-#        - tag: host_release
-#          gn: --embedder-for-target --runtime-mode release --lto --stripped
-#          host: macos-latest
-#          host_tag: macosx_x64
+        - tag: host_release
+          gn: --embedder-for-target --runtime-mode release --lto --stripped
+          host: ubuntu-latest
+          host_tag: linux_x64
+        - tag: host_release
+          gn: --embedder-for-target --runtime-mode release --lto --stripped
+          host: macos-latest
+          host_tag: macosx_x64
         - tag: host_release
           gn: --embedder-for-target --runtime-mode release --lto --stripped
           host: windows-latest
@@ -152,10 +151,10 @@ jobs:
       run: ./fetch-engine.sh ${{ steps.get_engine_version.outputs.engine_version }}
       shell: bash
 
-    #- name: Patch
-    #  if: steps.release_check.outputs.skip_build != 'true'
-    #  run: ./patch-engine.sh
-    #  shell: bash
+    - name: Patch
+      if: steps.release_check.outputs.skip_build != 'true'
+      run: ./patch-engine.sh
+      shell: bash
 
     - name: Generate config
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
