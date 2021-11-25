@@ -225,7 +225,6 @@ jobs:
     - name: Upload release asset (windows)
       if: steps.release_check.outputs.skip_build != 'true' && github.event_name != 'pull_request' && matrix.config.host == 'windows-latest'
       uses: softprops/action-gh-release@master
-      working-directory: C:\repo
       env:
         GITHUB_TOKEN: ${{ secrets.PERMANENT_GITHUB_TOKEN }}
       with:
