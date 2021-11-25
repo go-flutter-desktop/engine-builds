@@ -16,122 +16,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        channel: [stable, beta, dev, master]
+        channel: [beta, dev, master] #, stable
         config:
-        # - tag: android_debug_unopt
-        #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --android
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_debug_unopt_arm64
-        #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --android --android-cpu=arm64
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_debug_unopt_x86
-          # gn: --embedder-for-target --runtime-mode=debug --unoptimized --android --android-cpu=x86
-          # host: ubuntu-latest
-          # host_tag: linux_x64
-        # - tag: android_debug_unopt_x64
-        #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --android --android-cpu=x64
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        #- tag: host_debug_unopt
-        #  gn: --embedder-for-target --runtime-mode=debug --unoptimized
-        #  host: ubuntu-latest
-        #  host_tag: linux_x64
-        # - tag: ios_debug_unopt
-        #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --ios
-        #   host: macos-latest
-        #   host_tag: macosx_x64
-        # - tag: ios_debug_unopt_arm
-          # gn: --embedder-for-target --runtime-mode=debug --unoptimized --ios --ios-cpu=arm
-          # host: macos-latest
-          # host_tag: macosx_x64
-        #- tag: host_debug_unopt
-        #  gn: --embedder-for-target --runtime-mode=debug --unoptimized
-        #  host: macos-latest
-        #  host_tag: macosx_x64
-        #- tag: host_debug_unopt
-        #  gn: --embedder-for-target --runtime-mode=debug --unoptimized
-        #  host: windows-latest
-        #  host_tag: windows_x64
+        # Debug builds not needed: fetched from Google
 
-        # - tag: android_profile
-        #   gn: --embedder-for-target --runtime-mode profile --lto --android
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_profile_arm64
-        #   gn: --embedder-for-target --runtime-mode profile --lto --android --android-cpu=arm64
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_profile_x86
-        #   gn: --embedder-for-target --runtime-mode profile --lto --android --android-cpu=x86
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_profile_x64
-        #   gn: --embedder-for-target --runtime-mode profile --lto --android --android-cpu=x64
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        - tag: host_profile
-          gn: --embedder-for-target --runtime-mode profile --lto
-          host: ubuntu-latest
-          host_tag: linux_x64
-        # - tag: ios_profile
-        #   gn: --embedder-for-target --runtime-mode profile --lto --ios
-        #   host: macos-latest
-        #   host_tag: macosx_x64
-        # - tag: ios_profile_arm
-        #   gn: --embedder-for-target --runtime-mode profile --lto --ios --ios-cpu=arm
-        #   host: macos-latest
-        #   host_tag: macosx_x64
-        - tag: host_profile
-          gn: --embedder-for-target --runtime-mode profile --lto
-          host: macos-latest
-          host_tag: macosx_x64
-        #- tag: host_profile
-        #  gn: --embedder-for-target --runtime-mode profile --lto
-        #  host: windows-latest
-        #  host_tag: windows_x64
+#        - tag: host_profile
+#          gn: --embedder-for-target --runtime-mode profile --lto
+#          host: ubuntu-latest
+#          host_tag: linux_x64
+#        - tag: host_profile
+#          gn: --embedder-for-target --runtime-mode profile --lto
+#          host: macos-latest
+#          host_tag: macosx_x64
+#        - tag: host_profile
+#          gn: --embedder-for-target --runtime-mode profile --lto
+#          host: windows-latest
+#          host_tag: windows_x64
 
-        # - tag: android_release
-        #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_release_arm64
-        #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
-        #     --android-cpu=arm64
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_release_x86
-        #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
-        #     --android-cpu=x86
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
-        # - tag: android_release_x64
-        #   gn: --embedder-for-target --runtime-mode release --lto --stripped --android
-        #     --android-cpu=x64
-        #   host: ubuntu-latest
-        #   host_tag: linux_x64
+#        - tag: host_release
+#          gn: --embedder-for-target --runtime-mode release --lto --stripped
+#          host: ubuntu-latest
+#          host_tag: linux_x64
+#        - tag: host_release
+#          gn: --embedder-for-target --runtime-mode release --lto --stripped
+#          host: macos-latest
+#          host_tag: macosx_x64
         - tag: host_release
           gn: --embedder-for-target --runtime-mode release --lto --stripped
-          host: ubuntu-latest
-          host_tag: linux_x64
-        # - tag: ios_release
-        #   gn: --embedder-for-target --runtime-mode release --lto --stripped --ios
-        #   host: macos-latest
-        #   host_tag: macosx_x64
-        # - tag: ios_release_arm
-        #   gn: --embedder-for-target --runtime-mode release --lto --stripped --ios
-        #     --ios-cpu=arm
-        #   host: macos-latest
-        #   host_tag: macosx_x64
-        - tag: host_release
-          gn: --embedder-for-target --runtime-mode release --lto --stripped
-          host: macos-latest
-          host_tag: macosx_x64
-        #- tag: host_release
-        #  gn: --embedder-for-target --runtime-mode release --lto --stripped
-        #  host: windows-latest
-        #  host_tag: windows_x64
+          host: windows-latest
+          host_tag: windows_x64
 
     runs-on: ${{ matrix.config.host }}
 
@@ -193,8 +106,13 @@ jobs:
       shell: bash
 
     - name: Checkout
-      if: steps.release_check.outputs.skip_build != 'true'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
       uses: actions/checkout@v1
+
+    - name: Checkout Windows
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      run: |
+        Get-PSDrive
 
     - name: Install Python 2.x
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'macos-latest'
