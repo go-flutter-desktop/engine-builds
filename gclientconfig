@@ -18,7 +18,6 @@ solutions = [
         'src/third_party/java/openjdk': None,
         'src/ios_tools': None,
         'src/third_party/khronos': None,
-        'src/third_party/vulkan': None,
         'src/third_party/fuchsia-vulkan': None,
         'src/gradle': None,
         'src/fuchsia/sdk/mac': None,
