@@ -136,12 +136,6 @@ jobs:
       run: ./fetch-depot-tools.sh
       shell: bash
 
-    # Not strictly necessary, because the depot tools clone will generate parent dirs as needed,
-    # but it makes me more comfortable to have it.
-    - name: Make working directory (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
-      run: mkdir C:\repo
-
     - name: Install depot tools (windows)
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
       working-directory: C:\repo
