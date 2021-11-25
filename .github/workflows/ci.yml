@@ -136,8 +136,10 @@ jobs:
       run: ./fetch-depot-tools.sh
       shell: bash
 
+    # Not strictly necessary, because the depot tools clone will generate parent dirs as needed,
+    # but it makes me more comfortable to have it.
     - name: Make working directory (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
       run: mkdir C:\repo
 
     - name: Install depot tools (windows)
@@ -234,4 +236,4 @@ jobs:
       with:
         tag_name: f-${{ steps.get_engine_version.outputs.engine_version }}
         name: Flutter ${{ steps.get_engine_version.outputs.engine_version }}
-        files: ${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip
+        files: C:\repo\engine_out\${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip # hope this works!
