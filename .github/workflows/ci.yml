@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        channel: [beta] #[stable, beta, dev, master]
+        channel: [stable, beta, dev, master]
         config:
         # - tag: android_debug_unopt
         #   gn: --embedder-for-target --runtime-mode=debug --unoptimized --android
@@ -124,10 +124,10 @@ jobs:
         #     --ios-cpu=arm
         #   host: macos-latest
         #   host_tag: macosx_x64
-        #- tag: host_release
-        #  gn: --embedder-for-target --runtime-mode release --lto --stripped
-        #  host: macos-latest
-        #  host_tag: macosx_x64
+        - tag: host_release
+          gn: --embedder-for-target --runtime-mode release --lto --stripped
+          host: macos-latest
+          host_tag: macosx_x64
         #- tag: host_release
         #  gn: --embedder-for-target --runtime-mode release --lto --stripped
         #  host: windows-latest
