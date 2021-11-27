@@ -3,7 +3,7 @@ name: Flutter Engine
 
 on:
   schedule:
-  - cron: 24 0/2 * * *
+  - cron: 24 0/12 * * *
   push:
     branches:
     - master
