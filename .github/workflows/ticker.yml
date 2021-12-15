@@ -23,6 +23,8 @@ jobs:
       - name: Run a multi-line script
         env:
           GITHUB_TOKEN: ${{ secrets.PERMANENT_GITHUB_TOKEN }}
+          GIT_COMMITTER_EMAIL: engine-builds@hover.build
+          GIT_COMMITTER_NAME: Engine Builder
         run: |
           git commit --allow-empty -m "Engine build tick"
           git push https://$GITHUB_TOKEN@github.com/go-flutter-desktop/engine-builds.git
