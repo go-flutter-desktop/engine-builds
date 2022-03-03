@@ -110,9 +110,9 @@ jobs:
 
     - name: Install Python 2.x
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'macos-latest'
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
-        python-version: '2.x'
+        python-version: '2.7'
 
     - name: Install dependencies (ubuntu)
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'ubuntu-latest'
