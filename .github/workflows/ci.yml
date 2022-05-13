@@ -4,10 +4,6 @@ name: Flutter Engine
 on:
   schedule:
   - cron: 24 0/12 * * *
-  push:
-    branches:
-    - master
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -15,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        channel: [beta, dev, master] #, stable
+        channel: [stable, beta] # master
         config:
         # Debug builds not needed: fetched from Google
 
@@ -29,7 +25,7 @@ jobs:
           host_tag: macosx_x64
         - tag: host_profile
           gn: --embedder-for-target --runtime-mode profile --lto
-          host: windows-latest
+          host: windows-2019
           host_tag: windows_x64
 
         - tag: host_release
@@ -42,7 +38,7 @@ jobs:
           host_tag: macosx_x64
         - tag: host_release
           gn: --embedder-for-target --runtime-mode release --lto --stripped
-          host: windows-latest
+          host: windows-2019
           host_tag: windows_x64
 
     runs-on: ${{ matrix.config.host }}
@@ -64,7 +60,7 @@ jobs:
         sudo df -h
 
     - name: Install curl (windows)
-      if: matrix.config.host == 'windows-latest'
+      if: matrix.config.host == 'windows-2019'
       run: choco install curl
 
     - name: Get engine version
@@ -105,18 +101,18 @@ jobs:
       shell: bash
 
     - name: Checkout
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       uses: actions/checkout@v1
 
     - name: Checkout (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       run: git clone https://github.com/jslater89/flutter-rs-engine-builds.git C:\repo
 
-    - name: Install Python 2.x
+    - name: Install Python 3.x
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'macos-latest'
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
-        python-version: '2.x'
+        python-version: '3.x'
 
     - name: Install dependencies (ubuntu)
       if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'ubuntu-latest'
@@ -127,98 +123,98 @@ jobs:
       run: brew install binutils gpatch tree
 
     - name: Install dependencies (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       run: choco install patch tree zip
 
     - name: Install depot tools
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: ./fetch-depot-tools.sh
       shell: bash
 
     - name: Install depot tools (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: ./fetch-depot-tools.sh
       shell: bash
 
     - name: Download engine (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: ./fetch-engine.bat ${{ steps.get_engine_version.outputs.engine_version }}
 
     - name: Download engine (macos + ubuntu)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: ./fetch-engine.sh ${{ steps.get_engine_version.outputs.engine_version }}
       shell: bash
 
     - name: Patch
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: ./patch-engine.sh
       shell: bash
 
     - name: Patch (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: ./patch-engine.sh
       shell: bash
 
     - name: Generate config
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: ./gn.sh ${{ matrix.config.gn }}
       shell: bash
 
     - name: Generate config (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: ./gn.sh ${{ matrix.config.gn }}
       shell: bash
 
     - name: Build
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: ./build.sh ${{ matrix.config.tag }}
       shell: bash
 
     - name: Build (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: ./build.sh ${{ matrix.config.tag }}
       shell: bash
 
     - name: Print out tree
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: tree ./engine/src/out/
       shell: bash
 
     - name: Print out tree (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: tree ./engine/src/out/
       shell: bash
 
     - name: Print release tree
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: tree ./engine_out/
       shell: bash
 
     - name: Print release tree (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: tree ./engine_out/
       shell: bash
 
     - name: Create release zip
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host != 'windows-2019'
       run: cd engine_out && zip -qq -r ../${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip ./*
       shell: bash
 
     - name: Create release zip (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && matrix.config.host == 'windows-2019'
       working-directory: C:\repo
       run: cd engine_out && zip -qq -r ../${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip ./*
       shell: bash
 
     - name: Upload release asset
-      if: steps.release_check.outputs.skip_build != 'true' && github.event_name != 'pull_request' && matrix.config.host != 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && github.event_name != 'pull_request' && matrix.config.host != 'windows-2019'
       uses: softprops/action-gh-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.PERMANENT_GITHUB_TOKEN }}
@@ -228,7 +224,7 @@ jobs:
         files: ${{ matrix.config.host_tag }}-${{ matrix.config.tag }}.zip
 
     - name: Upload release asset (windows)
-      if: steps.release_check.outputs.skip_build != 'true' && github.event_name != 'pull_request' && matrix.config.host == 'windows-latest'
+      if: steps.release_check.outputs.skip_build != 'true' && github.event_name != 'pull_request' && matrix.config.host == 'windows-2019'
       uses: softprops/action-gh-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.PERMANENT_GITHUB_TOKEN }}

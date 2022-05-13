@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Ticker
+
+# Controls when the workflow will run
+on:
+  schedule:
+  - cron: 24 0/12 13 * *
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a multi-line script
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERMANENT_GITHUB_TOKEN }}
+        run: |
+          git config user.email "engine-builder@hover.build"
+          git config user.name "Engine Builder"
+          git commit --allow-empty -m "Engine build tick"
+          git push https://$GITHUB_TOKEN@github.com/go-flutter-desktop/engine-builds.git master:master
