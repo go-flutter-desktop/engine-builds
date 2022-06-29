@@ -1,0 +1,70 @@
+diff --git shell/platform/embedder/BUILD.gn shell/platform/embedder/BUILD.gn
+index b54a0d25a5..c811b9b520 100644
+--- shell/platform/embedder/BUILD.gn
++++ shell/platform/embedder/BUILD.gn
+@@ -324,7 +324,7 @@ copy("copy_headers") {
+   outputs = [ "$root_out_dir/flutter_embedder.h" ]
+ }
+ 
+-if (is_mac && !embedder_for_target) {
++if (is_mac) {
+   _flutter_embedder_framework_dir = "$root_out_dir/FlutterEmbedder.framework"
+ 
+   copy("copy_framework_headers") {
+@@ -412,29 +412,7 @@ if (is_mac && !embedder_for_target) {
+     visibility = [ ":*" ]
+     deps = [ ":generate_symlinks" ]
+   }
+-}
+-
+-group("flutter_engine") {
+-  deps = []
+-
+-  build_embedder_api =
+-      current_toolchain == host_toolchain || embedder_for_target
+-
+-  if (build_embedder_api) {
+-    # All platforms require the embedder dylib and headers.
+-    deps += [
+-      ":copy_headers",
+-      ":flutter_engine_library",
+-    ]
+-
+-    # For the Mac, the dylib is packaged in a framework with the appropriate headers.
+-    if (is_mac && !embedder_for_target) {
+-      deps += [ ":flutter_embedder_framework" ]
+-    }
+-  }
+-}
+ 
+-if (is_mac) {
+   zip_bundle("flutter_embedder_framework_archive") {
+     deps = [ ":generate_symlinks" ]
+     output = "$full_platform_name/FlutterEmbedder.framework.zip"
+@@ -459,6 +437,26 @@ if (is_mac) {
+   }
+ }
+ 
++group("flutter_engine") {
++  deps = []
++
++  build_embedder_api =
++      current_toolchain == host_toolchain || embedder_for_target
++
++  if (build_embedder_api) {
++    # All platforms require the embedder dylib and headers.
++    deps += [
++      ":copy_headers",
++      ":flutter_engine_library",
++    ]
++
++    # For the Mac, the dylib is packaged in a framework with the appropriate headers.
++    if (is_mac && !embedder_for_target) {
++      deps += [ ":flutter_embedder_framework" ]
++    }
++  }
++}
++
+ if (host_os == "linux" || host_os == "win") {
+   zip_bundle("embedder-archive") {
+     output = "$full_platform_name/$full_platform_name-embedder.zip"
