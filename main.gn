@@ -40,6 +40,10 @@ config("export_dynamic_symbols") {
 
 }
 
+group("dart_sdk") {
+
+}
+
 group("dist") {
   testonly = true
 
